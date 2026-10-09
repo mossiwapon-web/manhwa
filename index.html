@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10151e">
+  <title>Manhwa Splitter Studio</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">M</div><div><strong>Manhwa Studio</strong><small>Splitter & PSD Toolkit</small></div></div>
+    <nav id="nav">
+      <button class="nav-item active" data-page="splitter"><span>✂</span> ย่อยรูป <kbd>01</kbd></button>
+      <button class="nav-item" data-page="resizer"><span>↔</span> ปรับความกว้าง <kbd>02</kbd></button>
+      <button class="nav-item" data-page="cover"><span>▧</span> ภาพปก & Watermark <kbd>03</kbd></button>
+      <button class="nav-item" data-page="export"><span>⇩</span> Export Manager <kbd>04</kbd></button>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span> ประมวลผลใน Browser<br><small>รูปไม่ถูกอัปโหลดไปเซิร์ฟเวอร์</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><span class="eyebrow">WORKSPACE / <span id="crumb">IMAGE SPLITTER</span></span><h1 id="pageTitle">ย่อยรูป Manhwa</h1></div><div class="top-actions"><span id="fileCount" class="pill">ยังไม่ได้เลือกโฟลเดอร์</span><button id="clearAll" class="btn btn-quiet">เริ่มใหม่</button></div></header>
+    <section class="page active" id="page-splitter">
+      <div class="intro"><div><h2>Split long comic pages</h2><p>นำภาพจากโฟลเดอร์มาเรียงตามชื่อไฟล์ แล้วสร้างเส้นแบ่งเพื่อส่งออกเป็น PSD แยกหน้า</p></div><span class="tag">01 / SPLITTER</span></div>
+      <div class="toolbar card">
+        <label class="btn btn-primary" for="folderInput">＋ เลือกโฟลเดอร์ภาพ</label><input id="folderInput" type="file" webkitdirectory directory multiple accept="image/*" hidden>
+        <div class="field inline"><label for="splitHeight">ระยะเส้นแบ่ง (px)</label><input id="splitHeight" type="number" min="100" value="5000"></div>
+        <button id="generateCuts" class="btn btn-secondary">สร้างเส้นแบ่ง</button>
+        <button id="addCut" class="btn btn-quiet">＋ เพิ่มเส้น</button>
+        <div class="spacer"></div><button id="exportSplit" class="btn btn-success">Export PSD + ZIP</button>
+      </div>
+      <div class="workspace-grid">
+        <section class="card preview-card"><div class="section-head"><div><h3>Long Preview</h3><p>ลากเส้นแบ่งเพื่อปรับตำแหน่ง · คลิก × เพื่อลบ</p></div><div class="preview-tools"><button id="zoomOut" class="icon-btn">−</button><span id="zoomLabel">100%</span><button id="zoomIn" class="icon-btn">＋</button></div></div><div id="emptyPreview" class="empty-state"><div class="empty-icon">▤</div><strong>เลือกโฟลเดอร์ภาพเพื่อเริ่มต้น</strong><p>รองรับ JPG, PNG, WEBP และภาพทั่วไปที่ Browser เปิดได้</p></div><div id="longPreview" class="long-preview" hidden><div id="longContent" class="long-content"></div><div id="cutLayer" class="cut-layer"></div></div><div class="preview-footer"><span id="dimensions">—</span><span id="cutCount">0 เส้นแบ่ง</span></div></section>
+        <aside class="card side-panel"><div class="section-head"><div><h3>รายการภาพ</h3><p id="sourceFolderName">ยังไม่มีโฟลเดอร์</p></div></div><div id="imageList" class="image-list"><div class="muted empty-small">ไฟล์ภาพจะแสดงที่นี่</div></div><div class="panel-bottom"><div class="metric"><span>ความสูงรวม</span><strong id="totalHeight">—</strong></div><div class="metric"><span>จำนวนชิ้นโดยประมาณ</span><strong id="pieceEstimate">—</strong></div></div></aside>
+      </div>
+    </section>
+    <section class="page" id="page-resizer">
+      <div class="intro"><div><h2>Resize width in batch</h2><p>ตรวจสอบขนาดภาพทั้งหมด ปรับเฉพาะความกว้าง และรักษาอัตราส่วนเดิม</p></div><span class="tag">02 / RESIZER</span></div>
+      <div class="card toolbar"><label class="btn btn-primary" for="resizeFolderInput">＋ เลือกโฟลเดอร์ภาพ</label><input id="resizeFolderInput" type="file" webkitdirectory directory multiple accept="image/*" hidden><div class="field inline"><label for="targetWidth">ความกว้างเป้าหมาย (px)</label><input id="targetWidth" type="number" min="1" value="800"></div><div class="preset-row"><button class="preset" data-width="600">600</button><button class="preset" data-width="700">700</button><button class="preset" data-width="800">800</button><button class="preset" data-width="900">900</button></div><div class="spacer"></div><button id="exportResize" class="btn btn-success">Export Resize PSD + ZIP</button></div>
+      <div class="card table-card"><div class="section-head"><div><h3>ตรวจสอบขนาดภาพ</h3><p id="resizeFolderName">เลือกโฟลเดอร์เพื่ออ่านขนาดภาพ</p></div><span id="resizeTotal" class="pill">0 ภาพ</span></div><div class="table-wrap"><table><thead><tr><th>ไฟล์</th><th>ขนาดเดิม</th><th>ขนาดใหม่</th><th>สถานะ</th></tr></thead><tbody id="resizeRows"><tr><td colspan="4" class="muted center">ยังไม่มีข้อมูล</td></tr></tbody></table></div></div>
+    </section>
+    <section class="page" id="page-cover">
+      <div class="intro"><div><h2>Cover & Watermark</h2><p>ตั้งค่าไฟล์ภาพปกและลายน้ำเพื่อใช้กับงานที่กำลัง Export</p></div><span class="tag">03 / BRANDING</span></div>
+      <div class="cover-grid">
+        <div class="card upload-card"><div class="section-head"><div><h3>Cover Image</h3><p>ใช้กับไฟล์ PSD แรกสุดและท้ายสุด</p></div><span class="mini-tag">OPTIONAL</span></div><label class="dropzone" for="coverInput"><span class="drop-icon">▧</span><strong>เลือกไฟล์ภาพปก</strong><small>JPG / PNG / WEBP</small><input id="coverInput" type="file" accept="image/*" hidden></label><div id="coverPreview" class="asset-preview"><span class="muted">ยังไม่ได้เลือกภาพปก</span></div><div class="field"><label for="coverFit">วิธี Fit ภาพปก</label><select id="coverFit"><option value="width">ปรับความกว้างให้เท่าภาพหลัก (รักษาสัดส่วน)</option><option value="contain">Contain ภายในกรอบภาพหลัก</option><option value="stretch">ยืดให้เต็มกรอบ (ไม่แนะนำ)</option></select></div></div>
+        <div class="card upload-card"><div class="section-head"><div><h3>Watermark</h3><p>วางกึ่งกลางแนวตั้ง สุ่มตำแหน่งแนวนอน</p></div><span class="mini-tag">OPTIONAL</span></div><label class="dropzone" for="watermarkInput"><span class="drop-icon">◈</span><strong>เลือกไฟล์ Watermark</strong><small>แนะนำ PNG พื้นหลังโปร่งใส</small><input id="watermarkInput" type="file" accept="image/*" hidden></label><div id="watermarkPreview" class="asset-preview"><span class="muted">ยังไม่ได้เลือก Watermark</span></div><div class="field"><label for="watermarkOpacity">Opacity <span id="opacityValue">35%</span></label><input id="watermarkOpacity" type="range" min="5" max="100" value="35"></div><div class="field"><label for="watermarkPosition">ตำแหน่งแนวนอน</label><select id="watermarkPosition"><option value="random">สุ่มในแต่ละหน้า</option><option value="left">ซ้าย</option><option value="center">กึ่งกลาง</option><option value="right">ขวา</option></select></div></div>
+      </div>
+      <div class="card info-card"><span class="info-symbol">i</span><div><strong>Layer แยกจริงใน PSD</strong><p>ภาพหลักและ Watermark จะเป็นคนละ Layer ส่วนภาพปกจะถูกเพิ่มเป็น Layer แยกในไฟล์แรกและไฟล์สุดท้ายเมื่อเปิดตัวเลือกภาพปกตอน Export</p></div></div>
+    </section>
+    <section class="page" id="page-export">
+      <div class="intro"><div><h2>Export Manager</h2><p>เลือกประเภทงาน ตรวจสอบโฟลเดอร์ปลายทาง และดาวน์โหลดผลลัพธ์เป็น ZIP</p></div><span class="tag">04 / EXPORT</span></div>
+      <div class="export-options">
+        <button class="export-option card selected" data-export="split"><span class="option-icon">✂</span><strong>Splitter PSD</strong><small>โฟลเดอร์ชื่อเดิม + _psd</small><span class="option-check">✓</span></button>
+        <button class="export-option card" data-export="resize"><span class="option-icon">↔</span><strong>Resize PSD</strong><small>โฟลเดอร์ชื่อเดิม + _resize_psd</small><span class="option-check">✓</span></button>
+        <button class="export-option card" data-export="success"><span class="option-icon">◈</span><strong>Success PSD</strong><small>โฟลเดอร์ชื่อเดิม + _success_psd</small><span class="option-check">✓</span></button>
+      </div>
+      <div class="card export-summary"><div class="section-head"><div><h3>แพ็กเกจที่จะสร้าง</h3><p>ภาพ Original จะถูกคัดลอกลง OG-Original ใน ZIP เสมอ</p></div></div><div class="summary-row"><span>ชื่อโฟลเดอร์ต้นฉบับ</span><strong id="summarySource">ยังไม่มีโฟลเดอร์</strong></div><div class="summary-row"><span>โฟลเดอร์ผลลัพธ์</span><strong id="summaryOutput">—</strong></div><div class="summary-row"><span>PSD มี Layer แยก</span><strong>เปิดใช้งาน</strong></div><div class="summary-row"><span>Cover / Watermark</span><strong id="summaryAssets">ยังไม่ได้ตั้งค่า</strong></div><div class="export-actions"><button id="exportSelected" class="btn btn-success">ยืนยันและดาวน์โหลด ZIP</button><button id="exportOriginals" class="btn btn-quiet">ดาวน์โหลดเฉพาะ OG-Original</button></div></div>
+      <div class="card log-card"><div class="section-head"><h3>สถานะงาน</h3><button id="clearLog" class="btn btn-quiet btn-small">ล้าง Log</button></div><div id="log" class="log-list"><div class="log-entry"><span class="log-dot"></span>พร้อมทำงาน — เลือกโฟลเดอร์ภาพเพื่อเริ่มต้น</div></div><div id="progressWrap" hidden><div class="progress-track"><div id="progressBar"></div></div><small id="progressText">0%</small></div></div>
+    </section>
+    <footer>Manhwa Splitter Studio <span>•</span> GitHub Pages build <span>•</span> ประมวลผลในเครื่องของคุณ</footer>
+  </main>
+</div>
+<dialog id="coverDialog"><form method="dialog" class="dialog-card"><div class="dialog-icon">▧</div><h2>ต้องการใส่ภาพปกหรือไม่?</h2><p>คุณสามารถเพิ่ม Cover และ Watermark เป็น Layer แยกในไฟล์ PSD ได้</p><label class="check-row"><input id="includeCover" type="checkbox"> ใส่ภาพปกใน PSD ไฟล์แรกสุดและท้ายสุด</label><label class="check-row"><input id="includeWatermark" type="checkbox"> ใส่ Watermark ในทุกไฟล์</label><div id="dialogWarning" class="dialog-warning" hidden></div><div class="dialog-actions"><button class="btn btn-quiet" value="cancel">ยกเลิก</button><button id="confirmExport" class="btn btn-success" value="confirm">ดำเนินการ Export</button></div></form></dialog>
+<div id="toast" role="status" class="toast"></div>
+<script type="module" src="./js/app.js"></script>
+</body></html>
